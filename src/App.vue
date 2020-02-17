@@ -203,7 +203,8 @@ export default {
         [1353, 59493],
         [1380, 63851], 
         [1523, 66492],
-        [1681, 72688]
+        [1665, 68500],
+        [1827, 73764],
       ],
       newRecord: [],
       // estimated death num
@@ -276,7 +277,7 @@ export default {
     estimateDeathPerDay(){
       let estimatedDeathPerDay = 0;
       let increaseRecord = [0];
-      let increasePercent = [];      
+      let increasePercent = [];
 
       let sum_of_element_Record = 0;
       let sum_of_element_Percent = 0;
@@ -286,14 +287,29 @@ export default {
         increaseRecord[i] = (this.record[i+1][0] - this.record[i][0]);
         increasePercent[i-1] = increaseRecord[i]/increaseRecord[i-1]; 
       }
-      for (let i = increaseRecord.length-10; i < increaseRecord.length; i++) {
-        sum_of_element_Record += increaseRecord[i];
+      for (let i = increaseRecord.length-20; i < increaseRecord.length; i++) {
+        sum_of_element_Record += increaseRecord[i]; //length of increaseRecord = 20
         sum_of_element_Percent += increasePercent[i-1];
       }
-      this.avg_death_percent = sum_of_element_Percent / 10 - 0.05;
-      this.avg_death_number = sum_of_element_Record / 10;
 
-      estimatedDeathPerDay = this.record[this.record.length - 1][0] + Math.round(this.avg_death_number*this.avg_death_percent);
+      this.avg_death_percent = sum_of_element_Percent / 20;
+      this.avg_death_number = sum_of_element_Record / 20;
+
+      //linear square regression
+      let x = 210; //sum of number 1-20 (20 days)
+      let y = sum_of_element_Record; //sum of elements in increaseRecord
+      let square_of_elem_Record = 0; //sum of x^2 where x = [1,20]
+      let xy = 0; //sum of x*y
+      for (let i = 1; i < 21; i++){
+        xy = xy + i*increaseRecord[increaseRecord.length-21+i];
+        square_of_elem_Record = square_of_elem_Record + i*i;
+      }
+      
+      let m = (20*xy-x*y)/((20*square_of_elem_Record)-(x*x)); //m is the slope of best fit graph
+      let b = (y - m*x)/20; //b is constant value
+      let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
+
+      estimatedDeathPerDay = this.record[this.record.length - 1][0] + estimatedDeathToday/2;
       console.log('about to return estimated death per day', estimatedDeathPerDay);
       return estimatedDeathPerDay;
     },
@@ -316,7 +332,21 @@ export default {
       this.avg_death_percent = sum_of_element_Percent / 10 - 0.15;
       this.avg_death_number = sum_of_element_Record / 10;
 
-      estimatedInfectedPerDay = this.record[this.record.length - 1][1] + Math.round(this.avg_death_number*this.avg_death_percent);
+      //linear square regression
+      let x = 210; //sum of number 1-20 (20 days)
+      let y = sum_of_element_Record; //sum of elements in increaseRecord
+      let square_of_elem_Record = 0; //sum of x^2 where x = [1,20]
+      let xy = 0; //sum of x*y
+      for (let i = 1; i < 21; i++){
+        xy = xy + i*increaseRecord[increaseRecord.length-21+i];
+        square_of_elem_Record = square_of_elem_Record + i*i;
+      }
+      
+      let m = (20*xy-x*y)/((20*square_of_elem_Record)-(x*x)); //m is the slope of best fit graph
+      let b = (y - m*x)/20; //b is constant value
+      let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
+
+      estimatedInfectedPerDay = this.record[this.record.length - 1][1] + estimatedDeathToday/2;
       return estimatedInfectedPerDay;
     },
     calculateDeath(days){
