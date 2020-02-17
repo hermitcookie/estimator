@@ -20,7 +20,8 @@
             <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer>
             <div class="subheading mb-4 font-weight-thin text-center">From Wuhan Coronavirus</div>
             <br>
-            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}, Wuhan, Hubei</h1>
+            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
+            <div class="subheading mb-4 font-weight-thin text-center">Wuhan, Hubei, China</div>
             <!-- <div class="subheading mb-4 font-weight-thin text-center">Current Time in Wuhan</div> -->
             <!-- <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer> -->
           </v-layout>
@@ -36,7 +37,7 @@
         >
           <v-flex xs12 sm4 class="my-4">
             <div class="text-center">
-              <h2 class="headline">Estimate Result of Wuhan Corona Virus!</h2>
+              <h2 class="headline">Predict The Result With Estimator!</h2>
               <!-- <span class="subheading">
                 Last updated in 02-02-2020
               </span> -->
@@ -138,8 +139,7 @@
           <v-flex xs12>
             <div class="white--text ml-4">
               Please contact to by
-              <b>worldestimator@gmail.com</b>,
-              Jaden Wilson
+              <b>worldestimator@gmail.com</b>
             </div>
           </v-flex>
         </v-layout>
