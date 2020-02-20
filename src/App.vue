@@ -20,7 +20,8 @@
             <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer>
             <div class="subheading mb-4 font-weight-thin text-center">From Wuhan Coronavirus</div>
             <br>
-            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}, Wuhan, Hubei</h1>
+            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
+            <div class="subheading mb-4 font-weight-thin text-center">Wuhan, Hubei, China</div>
             <!-- <div class="subheading mb-4 font-weight-thin text-center">Current Time in Wuhan</div> -->
             <!-- <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer> -->
           </v-layout>
@@ -36,7 +37,7 @@
         >
           <v-flex xs12 sm4 class="my-4">
             <div class="text-center">
-              <h2 class="headline">Estimate Result of Wuhan Corona Virus!</h2>
+              <h2 class="headline">Predict The Result With Estimator!</h2>
               <!-- <span class="subheading">
                 Last updated in 02-02-2020
               </span> -->
@@ -138,8 +139,7 @@
           <v-flex xs12>
             <div class="white--text ml-4">
               Please contact to by
-              <b>worldestimator@gmail.com</b>,
-              Jaden Wilson
+              <b>worldestimator@gmail.com</b>
             </div>
           </v-flex>
         </v-layout>
@@ -166,7 +166,41 @@ export default {
       numOfInfected: 0,
       duration: 0,
       today: moment().format('YYYY-MM-DD'),
-      // record
+      // [Name of Country, number of infected, number of death]
+      world: [
+        ['China',	74577,	2118],
+        ['Diamond Princess',	621,	2],
+        ['Japan',	85,	1],
+        ['Singapore',	84, 0	],
+        ['S. Korea',	82,	0 ],
+        ['Hong Kong',	65,	2],
+        ['Thailand',	35, 0],
+        ['Taiwan',	23,	1],
+        ['Malaysia',	22, 0],
+        ['Germany',	16,	0],
+        ['Vietnam',	16, 0],
+        ['Australia',	15,	0],
+        ['USA',	15,	0],
+        ['France',	12,	1],
+        ['Macao',	10,	0],
+        ['U.K.',	9, 0],
+        ['U.A.E.',	9,	0],
+        ['Canada',	8,	0],
+        ['Philippines',	3,	1],
+        ['India',	3,	0],
+        ['Italy',	3,	0],
+        ['Iran',	2,	2],
+        ['Russia',	2,	0],
+        ['Spain',	2,	0],
+        ['Belgium',	1,	0],
+        ['Cambodia',	1,	0],
+        ['Egypt',	1,	0],
+        ['Finland',	1,	0],
+        ['Nepal',	1,	0],
+        ['Sri Lanka',	1,	0],
+        ['Sweden',	1,	0],
+      ],
+      //record
       record: [
         [1, 41],
         [1, 41],
@@ -203,7 +237,11 @@ export default {
         [1353, 59493],
         [1380, 63851], 
         [1523, 66492],
-        [1681, 72688]
+        [1665, 68500],
+        [1770, 70548],
+        [1868, 72436],
+        [2004, 74185],
+        [2118, 74576]
       ],
       newRecord: [],
       // estimated death num
@@ -276,7 +314,7 @@ export default {
     estimateDeathPerDay(){
       let estimatedDeathPerDay = 0;
       let increaseRecord = [0];
-      let increasePercent = [];      
+      let increasePercent = [];
 
       let sum_of_element_Record = 0;
       let sum_of_element_Percent = 0;
@@ -286,14 +324,29 @@ export default {
         increaseRecord[i] = (this.record[i+1][0] - this.record[i][0]);
         increasePercent[i-1] = increaseRecord[i]/increaseRecord[i-1]; 
       }
-      for (let i = increaseRecord.length-10; i < increaseRecord.length; i++) {
-        sum_of_element_Record += increaseRecord[i];
+      for (let i = increaseRecord.length-20; i < increaseRecord.length; i++) {
+        sum_of_element_Record += increaseRecord[i]; //length of increaseRecord = 20
         sum_of_element_Percent += increasePercent[i-1];
       }
-      this.avg_death_percent = sum_of_element_Percent / 10 - 0.05;
-      this.avg_death_number = sum_of_element_Record / 10;
 
-      estimatedDeathPerDay = this.record[this.record.length - 1][0] + Math.round(this.avg_death_number*this.avg_death_percent);
+      this.avg_death_percent = sum_of_element_Percent / 20;
+      this.avg_death_number = sum_of_element_Record / 20;
+
+      //linear square regression
+      let x = 210; //sum of number 1-20 (20 days)
+      let y = sum_of_element_Record; //sum of elements in increaseRecord
+      let square_of_elem_Record = 0; //sum of x^2 where x = [1,20]
+      let xy = 0; //sum of x*y
+      for (let i = 1; i < 21; i++){
+        xy = xy + i*increaseRecord[increaseRecord.length-21+i];
+        square_of_elem_Record = square_of_elem_Record + i*i;
+      }
+      
+      let m = (20*xy-x*y)/((20*square_of_elem_Record)-(x*x)); //m is the slope of best fit graph
+      let b = (y - m*x)/20; //b is constant value
+      let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
+
+      estimatedDeathPerDay = this.record[this.record.length - 1][0] + estimatedDeathToday/2;
       console.log('about to return estimated death per day', estimatedDeathPerDay);
       return estimatedDeathPerDay;
     },
@@ -316,7 +369,21 @@ export default {
       this.avg_death_percent = sum_of_element_Percent / 10 - 0.15;
       this.avg_death_number = sum_of_element_Record / 10;
 
-      estimatedInfectedPerDay = this.record[this.record.length - 1][1] + Math.round(this.avg_death_number*this.avg_death_percent);
+      //linear square regression
+      let x = 210; //sum of number 1-20 (20 days)
+      let y = sum_of_element_Record; //sum of elements in increaseRecord
+      let square_of_elem_Record = 0; //sum of x^2 where x = [1,20]
+      let xy = 0; //sum of x*y
+      for (let i = 1; i < 21; i++){
+        xy = xy + i*increaseRecord[increaseRecord.length-21+i];
+        square_of_elem_Record = square_of_elem_Record + i*i;
+      }
+      
+      let m = (20*xy-x*y)/((20*square_of_elem_Record)-(x*x)); //m is the slope of best fit graph
+      let b = (y - m*x)/20; //b is constant value
+      let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
+
+      estimatedInfectedPerDay = this.record[this.record.length - 1][1] + estimatedDeathToday/2;
       return estimatedInfectedPerDay;
     },
     calculateDeath(days){
