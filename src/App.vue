@@ -2,7 +2,7 @@
   <div id="app">
    <v-app light>
     <v-toolbar color="white">
-      <h1 style="font-family: Brush Script Std;">Estimators</h1>
+      <h1 style="font-family: Brush Script Std;">Estimator</h1>
     </v-toolbar>
     <v-content>
       <section>
@@ -38,9 +38,9 @@
           <v-flex xs12 sm4 class="my-4">
             <div class="text-center">
               <h2 class="headline">Predict The Result With Estimator!</h2>
-              <!-- <span class="subheading">
-                Last updated in 02-02-2020
-              </span> -->
+              <span class="subheading">
+                Based on the Method of <a href="https://en.wikipedia.org/wiki/Least_squares" style="font-weight: bold; color: black; text-decoration: none;">Least Squares</a>
+              </span>
             </div>
           </v-flex>
           <v-flex xs12>
