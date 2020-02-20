@@ -2,7 +2,7 @@
   <div id="app">
    <v-app light>
     <v-toolbar color="white">
-      <h1 style="font-family: Brush Script Std;">Estimators</h1>
+      <h1 style="font-family: Brush Script Std;">Estimator</h1>
     </v-toolbar>
     <v-content>
       <section>
