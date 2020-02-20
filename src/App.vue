@@ -38,9 +38,9 @@
           <v-flex xs12 sm4 class="my-4">
             <div class="text-center">
               <h2 class="headline">Predict The Result With Estimator!</h2>
-              <!-- <span class="subheading">
-                Last updated in 02-02-2020
-              </span> -->
+              <span class="subheading">
+                Based on the Method of <a href="https://en.wikipedia.org/wiki/Least_squares" style="font-weight: bold; color: black; text-decoration: none;">Least Squares</a>
+              </span>
             </div>
           </v-flex>
           <v-flex xs12>
@@ -166,7 +166,41 @@ export default {
       numOfInfected: 0,
       duration: 0,
       today: moment().format('YYYY-MM-DD'),
-      // record
+      // [Name of Country, number of infected, number of death]
+      world: [
+        ['China',	74577,	2118],
+        ['Diamond Princess',	621,	2],
+        ['Japan',	85,	1],
+        ['Singapore',	84, 0	],
+        ['S. Korea',	82,	0 ],
+        ['Hong Kong',	65,	2],
+        ['Thailand',	35, 0],
+        ['Taiwan',	23,	1],
+        ['Malaysia',	22, 0],
+        ['Germany',	16,	0],
+        ['Vietnam',	16, 0],
+        ['Australia',	15,	0],
+        ['USA',	15,	0],
+        ['France',	12,	1],
+        ['Macao',	10,	0],
+        ['U.K.',	9, 0],
+        ['U.A.E.',	9,	0],
+        ['Canada',	8,	0],
+        ['Philippines',	3,	1],
+        ['India',	3,	0],
+        ['Italy',	3,	0],
+        ['Iran',	2,	2],
+        ['Russia',	2,	0],
+        ['Spain',	2,	0],
+        ['Belgium',	1,	0],
+        ['Cambodia',	1,	0],
+        ['Egypt',	1,	0],
+        ['Finland',	1,	0],
+        ['Nepal',	1,	0],
+        ['Sri Lanka',	1,	0],
+        ['Sweden',	1,	0],
+      ],
+      //record
       record: [
         [1, 41],
         [1, 41],
@@ -204,7 +238,10 @@ export default {
         [1380, 63851], 
         [1523, 66492],
         [1665, 68500],
-        [1827, 73764],
+        [1770, 70548],
+        [1868, 72436],
+        [2004, 74185],
+        [2118, 74576]
       ],
       newRecord: [],
       // estimated death num
