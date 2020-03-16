@@ -6,7 +6,7 @@
     </v-toolbar>
     <v-content>
       <section>
-        <v-parallax :src="require('../public/assets/face-mask.jpg')">
+        <v-parallax :src="require('../public/assets/mask.png')">
           <v-layout
             column
             align-center
