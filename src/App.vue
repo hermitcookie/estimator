@@ -6,22 +6,22 @@
     </v-toolbar>
     <v-content>
       <section>
-        <v-parallax :src="require('../public/assets/wuhan-estimator.png')">
+        <v-parallax :src="require('../public/assets/mask.png')">
           <v-layout
             column
             align-center
             justify-center
-            class="white--text"
+            class="black--text"
           >
-            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">Number Of Death</h1>
+            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Death</h1>
             <vue-odometer :value="numOfDeath" format="d" theme="car" class="odometer" animation="smooth"></vue-odometer>
             <br>
-            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">Number Of Infected</h1>
+            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Infected</h1>
             <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer>
-            <div class="subheading mb-4 font-weight-thin text-center">From Wuhan Coronavirus</div>
+            <div class="subheading mb-4 text-center">From Wuhan Coronavirus</div>
             <br>
-            <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
-            <div class="subheading mb-4 font-weight-thin text-center">Wuhan, Hubei, China</div>
+            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
+            <div class="subheading mb-4 text-center">Wuhan, Hubei, China</div>
           </v-layout>
         </v-parallax>
       </section>
