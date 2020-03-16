@@ -22,8 +22,6 @@
             <br>
             <h1 class="white--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
             <div class="subheading mb-4 font-weight-thin text-center">Wuhan, Hubei, China</div>
-            <!-- <div class="subheading mb-4 font-weight-thin text-center">Current Time in Wuhan</div> -->
-            <!-- <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer> -->
           </v-layout>
         </v-parallax>
       </section>
@@ -46,7 +44,7 @@
           <v-flex xs12>
             <v-container grid-list-xl>
               <v-layout row wrap align-center>
-                <v-flex xs12 md4>
+                <v-flex xs12 md3>
                   <v-card flat class="transparent">
                     <v-card-text class="text-center">
                       <img width="64" src="../public/assets/death.png"/>
@@ -60,7 +58,7 @@
                     </v-card-text>
                   </v-card>
                 </v-flex>
-                <v-flex xs12 md4>
+                <v-flex xs12 md3>
                   <v-card flat class="transparent">
                     <v-card-text class="text-center">
                       <img width="64" src="../public/assets/infection.png"/>
@@ -74,17 +72,14 @@
                     </v-card-text>
                   </v-card>
                 </v-flex>
-                <v-flex xs12 md4>
+                <v-flex xs12 md3>
                   <v-card flat class="transparent" width="1000">
-                    <v-card-text class="text-center">
-                      <img src="../public/assets/lethality.png"/>
-                    </v-card-text>
-                    <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-center">Lethality</div>
-                    </v-card-title>
-                    <v-card-text class="display-3 font-weight-thin" align="center">
-                      {{ (this.record[this.record.length-1][0] / this.record[this.record.length-1][1] * 100).toFixed(2) }} %
-                    </v-card-text>
+                    <RandomChart color="#fada5e" label="Infected" :record="this.InfectedRecord"></RandomChart>
+                  </v-card>
+                </v-flex>
+                <v-flex xs12 md3>
+                  <v-card flat class="transparent" width="1000">
+                    <RandomChart color="#f87979" label="Death" :record="this.DeathRecord"></RandomChart>
                   </v-card>
                 </v-flex>
               </v-layout>
@@ -92,47 +87,6 @@
           </v-flex>
         </v-layout>
       </section>
-
-      <!-- <section>
-        <v-parallax :src="require('../public/assets/statistics2.jpg')" height="380">
-          <v-layout column align-center justify-center>
-            <div class="headline white--text mb-4 text-center">Check out other Estimators!</div>
-            <em>Wanna know usage of plastic in 2030?</em>
-            <v-btn
-              class="mt-12"
-              color="blue lighten-2"
-              dark
-              large
-              href="/pre-made-themes"
-            >
-              Check other Estimators
-            </v-btn>
-          </v-layout>
-        </v-parallax>
-      </section>
-
-      <section>
-        <v-container grid-list-xl>
-          <v-layout row wrap justify-center class="my-12">
-            <v-flex xs12 sm4>
-              <v-card flat class="transparent">
-                <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Estimate number of Death</div>
-                </v-card-title>
-                <RandomChart></RandomChart>
-              </v-card>
-            </v-flex>
-            <v-flex xs12 sm4 offset-sm1>
-              <v-card flat class="transparent">
-                <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Estimate number of Infected</div>
-                </v-card-title>
-                <RandomChart></RandomChart>
-              </v-card>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </section> -->
 
       <v-footer color="blue darken-2">
         <v-layout row wrap align-center>
@@ -155,6 +109,7 @@ import moment from 'moment';
 import VueOdometer from "v-odometer/src";
 import DatePicker from "./components/DatePicker.vue";
 import { setTimeout } from "timers";
+import RandomChart from './components/RandomChart.vue';
 
 export default {
   name: "app",
@@ -200,48 +155,60 @@ export default {
         ['Sri Lanka',	1,	0],
         ['Sweden',	1,	0],
       ],
-      //record
+      //record, this starts from FEB 22 to MAR 14
       record: [
-        [1, 41],
-        [1, 41],
-        [1, 41],
-        [1, 41],
-        [2, 45],
-        [2, 45],
-        [2, 62],
-        [2, 121],
-        [3, 198],
-        [6, 291],
-        [9, 440],
-        [17, 571],
-        [25, 830],
-        [41, 1287],
-        [56, 1975],
-        [80, 2744],
-        [106, 4515],
-        [132, 5974],
-        [170, 7711],
-        [213, 9692],
-        [259, 11791],
-        [304, 14380],
-        [361, 17205],
-        [425, 20440],
-        [490, 24324],
-        [563, 28018],
-        [637, 31161],
-        [722, 34546],
-        [811, 37198],
-        [908, 40171],
-        [1016, 42638],
-        [1113, 44653],
-        [1353, 59493],
-        [1380, 63851], 
-        [1523, 66492],
-        [1665, 68500],
-        [1770, 70548],
-        [1868, 72436],
-        [2004, 74185],
-        [2118, 74576]
+        [580, 17],
+        [845, 25],
+        [1317, 41],
+        [2015, 56],
+        [2800, 80],
+        [4581, 106],
+        [6058, 132],
+        [7813, 170],
+        [9823, 213],
+        [11950, 259],
+        [14553, 304],
+        [17391, 362],
+        [20630, 426],
+        [24545, 492],
+        [28266, 638],
+        [31439, 724],
+        [34876, 813],
+        [37552, 910],
+        [40553, 1018],
+        [43099, 1115],
+        [45134, 1261],
+        [59287, 1383],
+        [64438, 1526],
+        [67100, 1669],
+        [69197, 1775],
+        [71329, 1873],
+        [73332, 2009],
+        [75700, 2126],
+        [76677, 2247],
+        [77673, 2360],
+        [78651, 2460],
+        [79205, 2618],
+        [80087, 2699],
+        [80828, 2763], 
+        [81820, 2800],
+        [83112, 2858],
+        [84615, 2923],
+        [86604, 2977],
+        [88585, 3050],
+        [90443, 3117],
+        [93016, 3202],
+        [95314, 3285],
+        [98425, 3387],
+        [102050, 3494],
+        [106099, 3599],
+        [109991, 3827],
+        [114381, 4025],
+        [118948, 4296],
+        [126214, 4628],
+        [134576, 4981],
+        [145483, 5429],
+        [156653, 5833],
       ],
       newRecord: [],
       // estimated death num
@@ -252,22 +219,25 @@ export default {
       estimatedIncreaseDeathPerDay: 0,
       estimatedIncreaseInfectedPerDay: 0,
       currentWuhanTime: '',
+      InfectedRecord: [],
+      DeathRecord: [],
     };
   },
   mounted() {
     clearTimeout();
     clearInterval();
     setInterval(this.updateTime, 100);
+    this.setData();
     this.estimatedDeathNum = this.estimateDeathPerDay();
     this.estimatedInfectedNum = this.estimateInfectedPerDay();
-    this.estimatedIncreaseDeathPerDay = this.estimatedDeathNum - this.record[this.record.length-1][0];
-    this.estimatedIncreaseInfectedPerDay = this.estimatedInfectedNum - this.record[this.record.length-1][1];
+    this.estimatedIncreaseDeathPerDay = this.estimatedDeathNum - this.record[this.record.length-1][1];
+    this.estimatedIncreaseInfectedPerDay = this.estimatedInfectedNum - this.record[this.record.length-1][0];
     this.startTime();
   },
   components: {
     "vue-odometer": VueOdometer,
-    "date-picker": DatePicker
-    // RandomChart,
+    "date-picker": DatePicker,
+    RandomChart,
   },
   destroyed() {
     console.log("destroyed");
@@ -300,8 +270,8 @@ export default {
       let c = (current_time_in_second * n)/ 86400;
       let c2 = (current_time_in_second * n2)/ 86400;
 
-      this.numOfDeath = this.record[this.record.length-1][0] + Math.round(c);
-      this.numOfInfected = this.record[this.record.length-1][1] + Math.round(c2);
+      this.numOfDeath = this.record[this.record.length-1][1] + Math.round(c);
+      this.numOfInfected = this.record[this.record.length-1][0] + Math.round(c2);
 
       console.log(
         "Num Of Death: ",
@@ -320,8 +290,7 @@ export default {
       let sum_of_element_Percent = 0;
 
       for (var i = 1; i < this.record.length-1; i++) {
-        console.log('running loop');
-        increaseRecord[i] = (this.record[i+1][0] - this.record[i][0]);
+        increaseRecord[i] = (this.record[i+1][1] - this.record[i][1]);
         increasePercent[i-1] = increaseRecord[i]/increaseRecord[i-1]; 
       }
       for (let i = increaseRecord.length-20; i < increaseRecord.length; i++) {
@@ -346,8 +315,7 @@ export default {
       let b = (y - m*x)/20; //b is constant value
       let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
 
-      estimatedDeathPerDay = this.record[this.record.length - 1][0] + estimatedDeathToday/2;
-      console.log('about to return estimated death per day', estimatedDeathPerDay);
+      estimatedDeathPerDay = this.record[this.record.length - 1][1] + estimatedDeathToday/2;
       return estimatedDeathPerDay;
     },
     estimateInfectedPerDay(){
@@ -359,7 +327,7 @@ export default {
       let sum_of_element_Percent = 0;
 
       for (let i = 1; i < this.record.length-1; i++) {
-        increaseRecord[i] = (this.record[i+1][1] - this.record[i][1]);
+        increaseRecord[i] = (this.record[i+1][0] - this.record[i][0]);
         increasePercent[i-1] = increaseRecord[i]/increaseRecord[i-1]; 
       }
       for (let i = increaseRecord.length-10; i < increaseRecord.length; i++) {
@@ -383,7 +351,7 @@ export default {
       let b = (y - m*x)/20; //b is constant value
       let estimatedDeathToday = Math.round((m*21 + b) + (this.avg_death_number*this.avg_death_percent)); //average value of two estimated values
 
-      estimatedInfectedPerDay = this.record[this.record.length - 1][1] + estimatedDeathToday/2;
+      estimatedInfectedPerDay = this.record[this.record.length - 1][0] + estimatedDeathToday/2;
       return estimatedInfectedPerDay;
     },
     calculateDeath(days){
@@ -408,6 +376,12 @@ export default {
     },
     updateTime() {
       this.currentWuhanTime = moment().zone("+08:00").format("MM-DD-YYYY, h:mm:ss A")
+    },
+    setData() {
+      for (let i = 0; i < this.record.length; i++) {
+        this.InfectedRecord.push(this.record[i][0]);
+        this.DeathRecord.push(this.record[i][1]);
+      }
     }
   }
 };
