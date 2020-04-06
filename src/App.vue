@@ -2,7 +2,7 @@
   <div id="app">
    <v-app light>
     <v-toolbar color="white">
-      <h1 style="font-family: Brush Script Std;">Estimator</h1>
+      <h1>Coronavirus Estimator</h1>
     </v-toolbar>
     <v-content>
       <section>
@@ -13,15 +13,15 @@
             justify-center
             class="black--text"
           >
-            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Death</h1>
+            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Death, Worldwide</h1>
             <vue-odometer :value="numOfDeath" format="d" theme="car" class="odometer" animation="smooth"></vue-odometer>
             <br>
-            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Infected</h1>
+            <h1 class="black--text mb-2 display-1 font-weight-thin text-center">Number Of Infected, Worldwide</h1>
             <vue-odometer :value="numOfInfected" theme="car" format="d" class="odometer" animation="smooth"></vue-odometer>
-            <div class="subheading mb-4 text-center">From Wuhan Coronavirus</div>
+            <div class="subheading mb-4 text-center">From Coronavirus</div>
             <br>
             <h1 class="black--text mb-2 display-1 font-weight-thin text-center">{{this.currentWuhanTime}}</h1>
-            <div class="subheading mb-4 text-center">Wuhan, Hubei, China</div>
+            <div class="subheading mb-4 text-center">New York City, NY, United States America</div>
           </v-layout>
         </v-parallax>
       </section>
@@ -47,20 +47,6 @@
                 <v-flex xs12 md3>
                   <v-card flat class="transparent">
                     <v-card-text class="text-center">
-                      <img width="64" src="../public/assets/death.png"/>
-                    </v-card-text>
-                    <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-center">Number Of Death</div>
-                    </v-card-title>
-                    <date-picker v-on:emitDate="eventDeathPatcher"/>
-                    <v-card-text class="display-3 font-weight-thin" align="center">
-                      <vue-odometer :value="estimatedDeathNum" format="d" class="odometer" animation="smooth"></vue-odometer>
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-                <v-flex xs12 md3>
-                  <v-card flat class="transparent">
-                    <v-card-text class="text-center">
                       <img width="64" src="../public/assets/infection.png"/>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
@@ -69,6 +55,20 @@
                     <date-picker v-on:emitDate="eventInfectedPatcher"/>
                     <v-card-text class="display-3 font-weight-thin" align="center">
                       <vue-odometer :value="estimatedInfectedNum" format="d" class="odometer" animation="smooth"></vue-odometer>
+                    </v-card-text>
+                  </v-card>
+                </v-flex>
+                                <v-flex xs12 md3>
+                  <v-card flat class="transparent">
+                    <v-card-text class="text-center">
+                      <img width="64" src="../public/assets/death.png"/>
+                    </v-card-text>
+                    <v-card-title primary-title class="layout justify-center">
+                      <div class="headline text-center">Number Of Death</div>
+                    </v-card-title>
+                    <date-picker v-on:emitDate="eventDeathPatcher"/>
+                    <v-card-text class="display-3 font-weight-thin" align="center">
+                      <vue-odometer :value="estimatedDeathNum" format="d" class="odometer" animation="smooth"></vue-odometer>
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -93,7 +93,7 @@
           <v-flex xs12>
             <div class="white--text ml-4">
               Please contact to by
-              <b>worldestimator@gmail.com</b>
+              <b>coronaestimator@gmail.com</b>
             </div>
           </v-flex>
         </v-layout>
@@ -122,39 +122,39 @@ export default {
       duration: 0,
       today: moment().format('YYYY-MM-DD'),
       // [Name of Country, number of infected, number of death]
-      world: [
-        ['China',	74577,	2118],
-        ['Diamond Princess',	621,	2],
-        ['Japan',	85,	1],
-        ['Singapore',	84, 0	],
-        ['S. Korea',	82,	0 ],
-        ['Hong Kong',	65,	2],
-        ['Thailand',	35, 0],
-        ['Taiwan',	23,	1],
-        ['Malaysia',	22, 0],
-        ['Germany',	16,	0],
-        ['Vietnam',	16, 0],
-        ['Australia',	15,	0],
-        ['USA',	15,	0],
-        ['France',	12,	1],
-        ['Macao',	10,	0],
-        ['U.K.',	9, 0],
-        ['U.A.E.',	9,	0],
-        ['Canada',	8,	0],
-        ['Philippines',	3,	1],
-        ['India',	3,	0],
-        ['Italy',	3,	0],
-        ['Iran',	2,	2],
-        ['Russia',	2,	0],
-        ['Spain',	2,	0],
-        ['Belgium',	1,	0],
-        ['Cambodia',	1,	0],
-        ['Egypt',	1,	0],
-        ['Finland',	1,	0],
-        ['Nepal',	1,	0],
-        ['Sri Lanka',	1,	0],
-        ['Sweden',	1,	0],
-      ],
+      // world: [
+      //   ['China',	74577,	2118],
+      //   ['Diamond Princess',	621,	2],
+      //   ['Japan',	85,	1],
+      //   ['Singapore',	84, 0	],
+      //   ['S. Korea',	82,	0 ],
+      //   ['Hong Kong',	65,	2],
+      //   ['Thailand',	35, 0],
+      //   ['Taiwan',	23,	1],
+      //   ['Malaysia',	22, 0],
+      //   ['Germany',	16,	0],
+      //   ['Vietnam',	16, 0],
+      //   ['Australia',	15,	0],
+      //   ['USA',	15,	0],
+      //   ['France',	12,	1],
+      //   ['Macao',	10,	0],
+      //   ['U.K.',	9, 0],
+      //   ['U.A.E.',	9,	0],
+      //   ['Canada',	8,	0],
+      //   ['Philippines',	3,	1],
+      //   ['India',	3,	0],
+      //   ['Italy',	3,	0],
+      //   ['Iran',	2,	2],
+      //   ['Russia',	2,	0],
+      //   ['Spain',	2,	0],
+      //   ['Belgium',	1,	0],
+      //   ['Cambodia',	1,	0],
+      //   ['Egypt',	1,	0],
+      //   ['Finland',	1,	0],
+      //   ['Nepal',	1,	0],
+      //   ['Sri Lanka',	1,	0],
+      //   ['Sweden',	1,	0],
+      // ],
       //record, this starts from FEB 22 to MAR 14
       record: [
         [580, 17],
@@ -206,9 +206,31 @@ export default {
         [114381, 4025],
         [118948, 4296],
         [126214, 4628],
-        [134576, 4981],
-        [145483, 5429],
-        [156653, 5833],
+        [134509, 4981],
+        [145416, 5429],
+        [156475, 5833],
+        [169511, 6520],
+        [182431, 7162],
+        [198159, 7979],
+        [218744, 8951],
+        [244902, 10030],
+        [275550, 11386],
+        [304979, 13011],
+        [337459, 14640],
+        [378830, 16513],
+        [422574, 18894],
+        [471035, 21282],
+        [531865, 24073],
+        [596366, 27343],
+        [663127, 30861],
+        [723390, 34065],
+        [784741, 37774],
+        [858361, 42309],
+        [935232, 47198],
+        [1015096, 53177],
+        [1116662, 58891],
+        [1201483, 64690],
+        [1272901, 69427],
       ],
       newRecord: [],
       // estimated death num
@@ -279,7 +301,7 @@ export default {
         "Num Of Infected",
         this.numOfInfected
       );
-      setTimeout(this.startTime, 500);
+      setTimeout(this.startTime, 5000);
     },
     estimateDeathPerDay(){
       let estimatedDeathPerDay = 0;
@@ -375,7 +397,7 @@ export default {
       this.calculateInfected(1+Math.round((new Date(date).getTime() - new Date().getTime()) / 1000 / 86400));
     },
     updateTime() {
-      this.currentWuhanTime = moment().zone("+08:00").format("MM-DD-YYYY, h:mm:ss A")
+      this.currentWuhanTime = moment().zone("-04:00").format("MM-DD-YYYY, h:mm:ss A")
     },
     setData() {
       for (let i = 0; i < this.record.length; i++) {
