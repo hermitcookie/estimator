@@ -15,7 +15,7 @@
     "v-odometer": "^2.0.1",
     "vue": "^2.6.10",
     "vue-chartjs": "^3.5.0",
-    "vuetify": "^2.2.8",
+    "vuetify": "^2.6.10",
     "yarn": "^1.22.0"
   },
   "devDependencies": {
